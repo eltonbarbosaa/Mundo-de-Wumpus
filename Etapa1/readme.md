@@ -2,7 +2,7 @@
 
 <figure>
 <center> 
-<img src=' https://drive.google.com/uc?export=view&id=1kLssH5_OMj55O3xwJz1DOYYwqkNMuJ6A' width="600" />
+<img src='https://drive.google.com/uc?export=view&id=1kLssH5_OMj55O3xwJz1DOYYwqkNMuJ6A' width="600" />
 
   
 </center>

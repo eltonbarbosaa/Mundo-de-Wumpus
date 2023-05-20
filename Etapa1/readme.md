@@ -10,7 +10,7 @@
 
 ## **Ambiente Mundo-Wumpos**
 
-<p ALIGN=justify ></p>
+<p ALIGN=justify >
 Nessa primeira implementação, vamos estar gerando o ambiente da simulação. Para isso é necessário criar a classe Ambiente que possui métodos para gerar o ambiente e posicionar os objetos que são definidos como: wumpus=5, poços=2 e ouro=10, além de definir esses objetos, fizemos as percepções que cada um emite wumpus=F, poços=b e ouro=B. O ambiente é definido por uma matriz, onde cada posição pode conter um objeto ou uma percepção. Já iniciamos nosso ambiente com o número de objetos definidos no programa, o usuário vai definir somente o tamanho da matriz inicialmente e ela deve ser maior ou igual a 3.
 Em resumo, a primeira etapa do código está dividida entre:
 
@@ -24,5 +24,5 @@ Em resumo, a primeira etapa do código está dividida entre:
 <br>•	O método "mostrar ambiente" exibe o ambiente na saída, formatando cada posição da matriz.
 <br>•	No exemplo de uso, o código solicita ao usuário o tamanho da matriz do ambiente, cria um objeto "Ambiente" com esse tamanho, gera o ambiente aleatoriamente e o mostra na saída.
 
-<p ALIGN=justify ></p>
+</p>
 

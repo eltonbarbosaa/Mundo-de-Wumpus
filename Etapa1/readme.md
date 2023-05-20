@@ -24,5 +24,8 @@ Em resumo, a primeira etapa do código está dividida entre:
 <br>•	O método "mostrar ambiente" exibe o ambiente na saída, formatando cada posição da matriz.
 <br>•	No exemplo de uso, o código solicita ao usuário o tamanho da matriz do ambiente, cria um objeto "Ambiente" com esse tamanho, gera o ambiente aleatoriamente e o mostra na saída.
 
+  
+ O código dá primeira impletação do ambiente pode ser acessado: 
+ [Ambiente](https://github.com/eltonbarbosaa/Mundo-de-Wumpus/blob/main/Etapa1/ambiente.py)
 </p>
 

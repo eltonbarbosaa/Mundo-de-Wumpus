@@ -1,4 +1,3 @@
-
 import random
 matriz = []
 sentirPoco = []
@@ -14,7 +13,18 @@ class gerarMatriz(object):
     coluna = None
     
     def gerar(self, y, x):
-    
+        '''
+        Função que realiza a geração as matrizes:
+            - Principal
+            - Sensação Poço
+            - Sensação Ouro
+            - Sensação Wumpus
+            - Memória
+        Args:
+            x, y: dimensões da matriz
+        Return:
+            matrizez criadas
+        '''
         global coluna, linha
         linha = y
         coluna = x
@@ -209,7 +219,68 @@ class agente_reativo(object):
         else:
             variavel = 1
 
-        
+        # definir as paredes
+        if variavel == 1:
+            # parede superior X
+            for i in range(coluna-1):
+                if matriz[0][i+1] == self.agente:
+                    print('Posicao:',0, i+1)
+                    print('SUPERIOR')
+                    agente_reativo.moverSe(agente_reativo, 0, i+1, 'SUPERIOR')
+                    variavel = 2
+                    break
+            # parede inferior X
+            if variavel != 2:
+                for i in range(coluna-1):
+                    if matriz[linha-1][i+1] == self.agente:
+                        print('Posicao:',linha-1, i+1)
+                        print('INFERIOR')
+                        agente_reativo.moverSe(agente_reativo, linha-1, i + 1, 'INFERIOR')
+                        variavel = 2
+                        break
+            # parede esquerda Y
+            if variavel != 2:
+                for i in range(linha-1):
+                    if matriz[i+1][0] == self.agente:
+                        print('Posicao:',i+1,0)
+                        print('ESQUERDA')
+                        agente_reativo.moverSe(agente_reativo, i + 1, 0, 'ESQUERDA')
+                        variavel = 2
+                        break
+            # parede direita Y
+            if variavel != 2:
+                for i in range(linha-1):
+                    if matriz[i+1][coluna-1] == self.agente:
+                        print('Posicao:',i+1, coluna-1)
+                        print('DIREITA')
+                        agente_reativo.moverSe(agente_reativo, i + 1, coluna - 1, 'DIREITA')
+                        variavel = 2
+                        break
+            if variavel == 2:
+                variavel = 0
+            else:
+                variavel = 2
+        else:
+            if variavel == 0:
+                pass
+            else:
+                variavel = 2
+
+        # centro
+        if variavel == 2:
+            temp = False
+            # matriz central sem cantos e paredes
+            for i in range(coluna-2):
+                if temp:
+                    break
+                else:
+                    for j in range(linha-2):
+                        if matriz[j+1][i+1] == self.agente:
+                            print('Posicao:',j+1, i+1)
+                            print("CENTRO")
+                            agente_reativo.moverSe(agente_reativo, j + 1, i + 1, 'CENTRO')
+                            temp = True
+                            break
 
     def moverSe(self, linha, coluna, info):
         if info == 'CANTO1':
@@ -368,7 +439,64 @@ class agente_reativo(object):
     def sentir(self):
         return
 
- 
+    def seguranca(self, linha, coluna):
+        if sentirPoco[0][0] == 'b' or sentirWumpus[0][0] == 'F':
+            temp = random.randint(0, 1)
+            if temp == 0:
+                matriz[0][0] = 's'
+                matriz[1][0] = self.agente
+            if temp == 1:
+                matriz[0][0] = 's'
+                matriz[0][1] = self.agente
+            return True
+
+        if sentirPoco[linha][coluna] == 'b' or sentirWumpus[linha][coluna] == 'F':
+            matriz[self.estado_anterior_linha][self.estado_anterior_coluna] = self.agente
+            matriz[linha][coluna] = 's'
+            if sentirPoco[linha][coluna] == 'b':
+                memoria[linha][coluna] = 'b'
+                agente_reativo.definirPoco(agente_reativo, linha, coluna)
+                print('Brisa')
+            if sentirWumpus[linha][coluna] == 'F':
+                memoria[linha][coluna] = 'f'
+                print('Fedor')
+            return True
+        else:
+            matriz[linha][coluna] = 's'
+            self.estado_anterior_linha = linha
+            self.estado_anterior_coluna = coluna
+            return False
+        return False
+
+    def definirPoco(self, linha, coluna):
+        if memoria[linha+1][coluna+1] == 'b':
+            memoria[linha][coluna+1] = '2'
+
+    def consequencia(self, linha, coluna):
+        if matriz[linha][coluna] == '10' and self.agente == 'A':
+            self.ouro = True
+            matriz[linha][coluna] = 'V'
+            teste.plot()
+            print('Peguei Ouro :)')
+        if self.agente == 'A':
+            if matriz[linha][coluna] == '2' or matriz[linha][coluna] == '5':
+                matriz[linha][coluna] = 'X'
+                teste.plot()
+                print('Morri :(')
+                exit()
+        if self.agente == '5':
+            if matriz[linha][coluna] == '2':
+                matriz[linha][coluna] = 'M'
+                teste.plot()
+                print('Wumpus Morreu :P')
+                exit()
+        else:
+            pass
+
+    def ganhar(self):
+        if matriz[0][0] == self.agente and self.ouro == True:
+            print('Ganhei :)')
+            exit()
 
 # inicializando a classe principal
 teste = gerarMatriz()
@@ -416,4 +544,4 @@ for j in range(100):
     teste.plot()
     i = i + 1
 
-
+teste.plotMemoria()
